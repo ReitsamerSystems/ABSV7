@@ -10,6 +10,20 @@ import {
   createRefund 
 } from './stripe-handler.js';
 
+import path from "path";
+import { fileURLToPath } from "url";
+
+// __dirname nachbauen (weil ES6 module)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// statische Dateien aus dist ausliefern
+app.use(express.static(path.join(__dirname, "../dist")));
+
+// für SPA-Fallback (React-Router)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../dist/index.html"));
+});
 
 dotenv.config();
 
