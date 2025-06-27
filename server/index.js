@@ -13,9 +13,13 @@ import {
 import path from "path";
 import { fileURLToPath } from "url";
 
+dotenv.config();
+
 // __dirname nachbauen (weil ES6 module)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const app = express();  // MUSS VORHER STEHEN
 
 // statische Dateien aus dist ausliefern
 app.use(express.static(path.join(__dirname, "../dist")));
@@ -25,16 +29,21 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
 
-dotenv.config();
-
-const app = express();
-const PORT = process.env.PORT || 3001;
-app.use('/api/stripe-webhook', express.raw({ type: 'application/json' }));
-
 // WICHTIG: Middleware VOR den Routes definieren
+app.use('/api/stripe-webhook', express.raw({ type: 'application/json' }));
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+const PORT = process.env.PORT || 3001;
+
+// hier deine API-Routen einfügen, z.B.
+// app.post('/api/...', ...)
+
+app.listen(PORT, () => {
+  console.log(`Server läuft auf Port ${PORT}`);
+});
+
 
 // OpenAI Configuration
 const openai = new OpenAI({
