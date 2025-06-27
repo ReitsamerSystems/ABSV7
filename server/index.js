@@ -35,15 +35,11 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-const PORT = process.env.PORT || 3000;
-
-// hier deine API-Routen einfügen, z.B.
-// app.post('/api/...', ...)
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log(`Server läuft auf Port ${PORT}`);
 });
-
 
 // OpenAI Configuration
 const openai = new OpenAI({
