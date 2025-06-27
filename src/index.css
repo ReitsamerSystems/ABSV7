@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@keyframes fade-in {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* Avatar Container */
+.avatar-container {
+  position: relative;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.avatar-container.speaking {
+  animation: gentle-bounce 2s ease-in-out infinite;
+}
+
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Fallback Avatar Circle */
+.avatar-circle {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #ec0008, #d00007);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(236, 0, 8, 0.3);
+}
+
+.avatar-circle.speaking {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% { 
+    transform: scale(1); 
+    box-shadow: 0 4px 20px rgba(236, 0, 8, 0.3);
+  }
+  50% { 
+    transform: scale(1.05); 
+    box-shadow: 0 6px 30px rgba(236, 0, 8, 0.5);
+  }
+  100% { 
+    transform: scale(1); 
+    box-shadow: 0 4px 20px rgba(236, 0, 8, 0.3);
+  }
+}
+
+/* Mund-Animationen für Lippensync */
+.mouth-closed .avatar-container img {
+  filter: brightness(1);
+}
+
+.mouth-slightly-open .avatar-container img {
+  filter: brightness(1.05) contrast(1.05);
+}
+
+.mouth-open .avatar-container img {
+  filter: brightness(1.1) contrast(1.1);
+}
+
+.mouth-wide-open .avatar-container img {
+  filter: brightness(1.15) contrast(1.15);
+}
+
+/* Verbesserte Fallback Avatar Styles */
+.fallback-avatar {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.avatar-container img[style*="display: none"] + .fallback-avatar {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Speaking Animation für das Bild */
+.avatar-container.speaking img {
+  animation: subtle-movement 3s ease-in-out infinite;
+}
+
+@keyframes subtle-movement {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg); 
+  }
+  25% { 
+    transform: scale(1.02) rotate(-1deg); 
+  }
+  75% { 
+    transform: scale(1.02) rotate(1deg); 
+  }
+}
+
+/* Mikrofon Animation */
+@keyframes pulse-mic {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-pulse {
+  animation: pulse-mic 1s ease-in-out infinite;
+}
+
+/* Text Bubble Animation */
+.text-bubble {
+  animation: slide-up 0.3s ease-out;
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Hover Effects */
+.avatar-container:hover {
+  transform: scale(1.02);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .avatar-container {
+    max-width: 100%;
+  }
+}
+
+/* Gentle Float Animation */
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-gentle-float {
+  animation: gentle-float 3s ease-in-out infinite;
+}
+
+/* Fallback Avatar anzeigen wenn Bild fehlt */
+.fallback-avatar {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+img[style*="display: none"] + .fallback-avatar {
+  opacity: 1;
+  pointer-events: all;
+}
